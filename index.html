@@ -266,13 +266,15 @@
 
 		.about-text {
 			font-family: 'Separat', sans-serif;
-			font-size: clamp(3rem, 4vw, 5rem);
+			font-size: clamp(2.5rem, 4vw, 6rem);
 			line-height: 1.1;
 			color: black;
 			text-align: center;
 
 
 		}
+
+		
 	</style>
 </head>
 
@@ -296,11 +298,9 @@
 		<div class="about-wrapper fade-in">
 			<h2 class="about-heading"></h2>
 			<p class="about-text"
-				data-text="We are Bismút, a creative engine for identity, content, and experimental tech, with art at its core.">
-			</p>
-			<!-- We are Bismút —<br>
-				a creative engine for identity, content, and experimental tech,<br>
-				with art at its core. -->
+				>
+		
+			We are Bismút</br>a creative engine for</br>identity, content, and</br>experimental tech</br>with art at its core.
 			</p>
 		</div>
 	</section>
@@ -376,78 +376,23 @@
 
 </body>
 <script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const aboutWrapper = document.querySelector('.about-wrapper');
 
-	function decodeText(el) {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
-		const targetText = el.dataset.text;
-		let iterations = 0;
-		const totalIterations = targetText.length;
-		const minBrightness = 80;
-		const maxBrightness = 1;
-
-		let startTime = null;
-
-		function easeOutQuad(t) {
-			// t goes from 0 to 1
-			return t * (2 - t); // Ease in — fast start, slow finish
-		}
-
-		function animate(timestamp) {
-			if (!startTime) startTime = timestamp;
-			const elapsed = timestamp - startTime;
-
-			// Calculate progress from 0 to 1
-			const progress = Math.min(elapsed / 950, 1); // total animation ~2s
-			const easedProgress = easeOutQuad(progress);
-
-			// Update how many letters should be solved
-			iterations = easedProgress * totalIterations;
-
-			const displayed = targetText.split('').map((char, i) => {
-				if (
-					char === ' ' || char === ',' || char === '.' ||
-					char === '-' || char === '—' || char === '\n' ||
-					i < iterations
-				) {
-					return `<span style="color: black;">${targetText[i]}</span>`;
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					aboutWrapper.classList.add('visible');
 				}
-
-				const randomChar = characters[Math.floor(Math.random() * characters.length)];
-				const distanceFromCurrent = i - iterations;
-				const progressRatio = Math.min(distanceFromCurrent / (targetText.length - iterations), 1);
-				const brightness = Math.round(maxBrightness - progressRatio * (maxBrightness - minBrightness));
-
-				return `<span style="color: hsl(0, 0%, ${brightness}%);">${randomChar}</span>`;
-			}).join('');
-
-			el.innerHTML = displayed;
-
-			if (iterations < totalIterations) {
-				requestAnimationFrame(animate);
-			} else {
-				el.textContent = targetText;
-			}
-		}
-
-		requestAnimationFrame(animate);
-	}
-
-
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				entry.target.classList.add('visible');
-
-				const textEl = entry.target.querySelector('.about-text');
-				if (textEl && !textEl.classList.contains('decoded')) {
-					decodeText(textEl);
-					textEl.classList.add('decoded');
-				}
-			}
+			});
+		}, {
+			threshold: 0.3
 		});
-	}, { threshold: 0.2 });
 
-	document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+		if (aboutWrapper) {
+			observer.observe(aboutWrapper);
+		}
+	});
 </script>
 
 </html>
