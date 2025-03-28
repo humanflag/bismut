@@ -7,6 +7,148 @@
 	<title>BISMUT</title>
 
 	<style>
+		.footer-intro {
+			font-size: clamp(1.2rem, 2.5vw, 3rem);
+			margin-bottom: 1rem;
+		}
+
+		.footer-section {
+			background: rgb(255, 255, 255);
+			color: rgb(0, 0, 0);
+			text-align: center;
+			padding: 4vw 0;
+			font-size: clamp(2rem, 3vw, 4rem);
+			font-family: 'Separat', sans-serif;
+
+		}
+
+		.projects-section {
+			background: black;
+			padding: 0.2vw 18vw;
+		}
+
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			grid-auto-rows: 10vw;
+			gap: 0.2vw;
+		}
+
+		.project {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			cursor: pointer;
+			overflow: hidden;
+			transition: filter 0.3s ease;
+		}
+
+
+
+
+		.project-content {
+			/* position: absolute; */
+			inset: 0;
+			height: 100%;
+			width: 100%;
+		}
+
+		/* Column span */
+		.project-1x {
+			grid-column: span 1;
+		}
+
+		.project-2x {
+			grid-column: span 2;
+		}
+
+		.project-3x {
+			grid-column: span 3;
+		}
+
+		.project-4x {
+			grid-column: span 4;
+		}
+
+		.project-5x {
+			grid-column: span 5;
+		}
+
+		.project-6x {
+			grid-column: span 6;
+		}
+
+		/* Row span */
+		.project-row-1x {
+			grid-row: span 1;
+		}
+
+		.project-row-2x {
+			grid-row: span 2;
+		}
+
+		.project-row-3x {
+			grid-row: span 3;
+		}
+
+		.project::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			z-index: 1;
+			/* Push it behind the label */
+		}
+
+		.project:hover::after {
+			opacity: 1;
+		}
+
+		.project-label {
+			position: absolute;
+			bottom: 1rem;
+			left: 1rem;
+			color: white;
+			font-size: clamp(0.7rem, 1.4vw, 1.4rem);
+			opacity: 0;
+			transition: opacity 0.3s ease, transform 0.3s ease;
+			transform: translateY(10px);
+			z-index: 2;
+			/* Make sure it appears above the overlay */
+
+
+		}
+
+		.project:hover .project-label {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		@media (max-width: 900px) {
+			.projects-grid {
+				grid-template-columns: repeat(6, 1fr);
+			}
+
+			nav {
+				display: none;
+			}
+
+			.projects-section {
+				padding: 0.2vw;
+			}
+		}
+
+		/* @media (max-width: 600px) {
+			.projects-grid {
+				grid-template-columns: 1fr;
+			}
+		} */
+
+
 		@font-face {
 			font-family: 'Separat';
 			src: url('fonts/Separat-Bold.woff2') format('woff2');
@@ -95,6 +237,13 @@
 			/* padding: 4vw; */
 		}
 
+		@media screen and (max-width: 900px) {
+			.about-section {
+				padding: 0 10vw;
+			}
+
+		}
+
 		.about-wrapper {
 			max-width: 900px;
 			width: 100%;
@@ -121,8 +270,8 @@
 			line-height: 1.1;
 			color: black;
 			text-align: center;
-			
-			
+
+
 		}
 	</style>
 </head>
@@ -130,7 +279,10 @@
 <body>
 
 	<nav>
-		<a href="#about">ABOUT</a>
+		<ul style="list-style: none; padding: 0; margin: 0;">
+			<li><a href="#about">ABOUT</a></li>
+			<li><a href="#projects">PROJECTS</a></li>
+		</ul>
 	</nav>
 
 	<section class="hero">
@@ -143,91 +295,159 @@
 	<section id="about" class="about-section">
 		<div class="about-wrapper fade-in">
 			<h2 class="about-heading"></h2>
-			<p class="about-text" data-text="We are Bismút — a creative engine for identity, content, and experimental tech, with art at its core.">
+			<p class="about-text"
+				data-text="We are Bismút, a creative engine for identity, content, and experimental tech, with art at its core.">
 			</p>
-				<!-- We are Bismút —<br>
+			<!-- We are Bismút —<br>
 				a creative engine for identity, content, and experimental tech,<br>
 				with art at its core. -->
 			</p>
 		</div>
 	</section>
 
+	<section id="projects" class="projects-section">
+		<div class="projects-grid">
+
+			<div class="project project-2x project-row-1x" style="background-image: url('img/bismutInni.jpg');">
+				<div class="project-content">
+					<div class="project-label">BISMÚT Café</div>
+				</div>
+			</div>
+			<div class="project project-1x project-row-1x" style="background-image: url('img/draga\ linur\ 3.jpg');">
+				<div class="project-content">
+					<div class="project-label">To Draw A Line</div>
+				</div>
+			</div>
+			<div class="project project-3x project-row-1x" style="background-image: url('img/void.jpg');">
+				<div class="project-content">
+					<div class="project-label">In a Void</div>
+				</div>
+			</div>
+			<div class="project project-4x project-row-2x" style="background-image: url('img/green.jpg');">
+				<div class="project-content">
+					<div class="project-label">Green By Iceland</br>In collaboration with Gagarin & Bark studio</div>
+				</div>
+			</div>
+			<div class="project project-2x project-row-2x" style="background-image: url('img/Utskrbok-6.jpg');">
+				<div class="project-content">
+					<div class="project-label">Iceland Academy of the Arts</br>Graduation Branding</div>
+				</div>
+			</div>
+
+			<div class="project project-2x project-row-3x">
+				<video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+					<source src="img/fokk.mp4" type="video/mp4">
+				</video>
+				<div class="project-content">
+					<div class="project-label">UN Women<br>Campaign</div>
+				</div>
+			</div>
+
+			<div class="project project-2x project-row-3x" style="background-image: url('img/steypa.png');">
+				<div class="project-content">
+					<div class="project-label">Steypa</br>Branding</div>
+				</div>
+			</div>
+			<div class="project project-2x project-row-3x" style="background-image: url('img/tgp.jpg');">
+				<div class="project-content">
+					<div class="project-label">The Garden Project</br>Branding</div>
+				</div>
+			</div>
+
+			<div class="project project-6x project-row-3x">
+				<video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
+					<source src="img/b_12s_3mb.mp4" type="video/mp4">
+				</video>
+				<div class="project-content">
+					<div class="project-label">Íslandsstofa - Design System<br>In collaboration with Bark studio</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<footer class="footer-section">
+		<p class="footer-intro">Have an idea? Let’s build it.</p>
+		<a href="mailto:raggi@bismut.is" style="text-decoration: none; color: inherit;">
+			<p class="footer-text">Say Hi!</p>
+		</a>
+	</footer>
 
 
 </body>
 <script>
 
-function decodeText(el) {
-	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
-	const targetText = el.dataset.text;
-	let iterations = 0;
-	const totalIterations = targetText.length;
-	const minBrightness = 80;
-	const maxBrightness = 1;
+	function decodeText(el) {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
+		const targetText = el.dataset.text;
+		let iterations = 0;
+		const totalIterations = targetText.length;
+		const minBrightness = 80;
+		const maxBrightness = 1;
 
-	let startTime = null;
+		let startTime = null;
 
-	function easeOutQuad(t) {
-		// t goes from 0 to 1
-		return t * (2 - t); // Ease in — fast start, slow finish
-	}
-
-	function animate(timestamp) {
-		if (!startTime) startTime = timestamp;
-		const elapsed = timestamp - startTime;
-
-		// Calculate progress from 0 to 1
-		const progress = Math.min(elapsed / 650, 1); // total animation ~2s
-		const easedProgress = easeOutQuad(progress);
-
-		// Update how many letters should be solved
-		iterations = easedProgress * totalIterations;
-
-		const displayed = targetText.split('').map((char, i) => {
-			if (
-				char === ' ' || char === ',' || char === '.' ||
-				char === '-' || char === '—' || char === '\n' ||
-				i < iterations
-			) {
-				return `<span style="color: black;">${targetText[i]}</span>`;
-			}
-
-			const randomChar = characters[Math.floor(Math.random() * characters.length)];
-			const distanceFromCurrent = i - iterations;
-			const progressRatio = Math.min(distanceFromCurrent / (targetText.length - iterations), 1);
-			const brightness = Math.round(maxBrightness - progressRatio * (maxBrightness - minBrightness));
-
-			return `<span style="color: hsl(0, 0%, ${brightness}%);">${randomChar}</span>`;
-		}).join('');
-
-		el.innerHTML = displayed;
-
-		if (iterations < totalIterations) {
-			requestAnimationFrame(animate);
-		} else {
-			el.textContent = targetText;
+		function easeOutQuad(t) {
+			// t goes from 0 to 1
+			return t * (2 - t); // Ease in — fast start, slow finish
 		}
-	}
 
-	requestAnimationFrame(animate);
-}
+		function animate(timestamp) {
+			if (!startTime) startTime = timestamp;
+			const elapsed = timestamp - startTime;
 
+			// Calculate progress from 0 to 1
+			const progress = Math.min(elapsed / 950, 1); // total animation ~2s
+			const easedProgress = easeOutQuad(progress);
 
-const observer = new IntersectionObserver((entries) => {
-	entries.forEach(entry => {
-		if (entry.isIntersecting) {
-			entry.target.classList.add('visible');
+			// Update how many letters should be solved
+			iterations = easedProgress * totalIterations;
 
-			const textEl = entry.target.querySelector('.about-text');
-			if (textEl && !textEl.classList.contains('decoded')) {
-				decodeText(textEl);
-				textEl.classList.add('decoded');
+			const displayed = targetText.split('').map((char, i) => {
+				if (
+					char === ' ' || char === ',' || char === '.' ||
+					char === '-' || char === '—' || char === '\n' ||
+					i < iterations
+				) {
+					return `<span style="color: black;">${targetText[i]}</span>`;
+				}
+
+				const randomChar = characters[Math.floor(Math.random() * characters.length)];
+				const distanceFromCurrent = i - iterations;
+				const progressRatio = Math.min(distanceFromCurrent / (targetText.length - iterations), 1);
+				const brightness = Math.round(maxBrightness - progressRatio * (maxBrightness - minBrightness));
+
+				return `<span style="color: hsl(0, 0%, ${brightness}%);">${randomChar}</span>`;
+			}).join('');
+
+			el.innerHTML = displayed;
+
+			if (iterations < totalIterations) {
+				requestAnimationFrame(animate);
+			} else {
+				el.textContent = targetText;
 			}
 		}
-	});
-}, { threshold: 0.2 });
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+		requestAnimationFrame(animate);
+	}
+
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+
+				const textEl = entry.target.querySelector('.about-text');
+				if (textEl && !textEl.classList.contains('decoded')) {
+					decodeText(textEl);
+					textEl.classList.add('decoded');
+				}
+			}
+		});
+	}, { threshold: 0.2 });
+
+	document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </html>
